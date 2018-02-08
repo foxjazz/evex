@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let itg of itemGroups">
+    <span (click)="toggle(itg)"> {{ itg.name }} </span>
+<!--    <as-tree-view *ngIf="itg.isExpanded" (onItemsSelect)="onItemsSel($event)" [itemGroups]="getChildren(itg)" >
+
+    </as-tree-view>-->
+  </li>
+</ul>
