@@ -1,17 +1,15 @@
-export interface IRegions {
-  items: Array<Region>;
-};
+
 
 export interface ISystems {
   items: Array<ISystem>;
-};
+}
 
-export interface Region {
-  id_str: string;
-  href: string;
-  id: number;
+export interface IRegion {
+  region_id: number;
   name: string;
-};
+  constellations?: (number)[] | null;
+
+}
 
 export interface ISystemShort{
   regionid: string;

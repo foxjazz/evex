@@ -1,4 +1,18 @@
-<p>
+<div class="grid-content">
+  <div>
   regions works!
   {{test}}
-</p>
+  <div>
+  count at:
+    theCount at: {{theCount}}
+    rl: {{rl}}
+  </div>
+  </div>
+  <div *ngIf="viewRegions" class="regions">
+  <ul *ngFor="let rr of sRegions" [class.selected]="rr === selectedRegion" (click)="onSelectRegion(rr)">
+    <li>{{rr.name}}</li>
+  </ul>
+  </div>
+
+
+</div>

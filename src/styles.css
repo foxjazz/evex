@@ -1,1 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+  background-color: #1d2528;
+  color: lightgrey;
+}
+
+ul{
+  background-color: #1d2528;
+  color: lightgrey;
+  list-style-type: none;
+  text-align: left;
+}
+
+
+a{
+  color: gold;
+}
+ul{
+  color: lightgreen;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+ul li{
+  color: lightgreen;
+  font-size: small;
+}
+
+.header{
+  grid-row: head;
+}
+.nav{
+  grid-row: nav;
+}
+.main{
+  grid-row: main;
+}
+.footer{
+  grid-row: foot;
+}
+.grid-container{
+  display: grid;
+  grid-template-rows: [head] 40px [nav] 40px [main] 85% [foot] 40px;
+}
+
+.grid-content{
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  gird-template-rows: 40px auto;
+}
+
+.headerdata{
+  grid-column: 1/3;
+  grid-row: 1;
+}
+.regions{
+  grid-column-start: 1;
+  grid-row-start: 2;
+}
