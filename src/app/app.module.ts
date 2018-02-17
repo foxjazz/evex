@@ -15,10 +15,13 @@ import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
 import {RegionService} from "./shared/region.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { ItemsByGroupComponent } from './items-by-group/items-by-group.component';
+import {ItemsService} from "./shared/items.service";
 
 const appRoutes: Routes = [
   { path: "regions", component: RegionsComponent },
-  { path: "home", component: HomeComponent }
+  { path: "home", component: HomeComponent },
+  {path: "items", component: ItemsByGroupComponent}
   ];
 
 @NgModule({
@@ -32,6 +35,7 @@ const appRoutes: Routes = [
     PriceBoardComponent,
     NavbarComponent,
     TreeviewComponent,
+    ItemsByGroupComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -42,7 +46,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
   ],
-  providers: [RegionService],
+  providers: [RegionService, ItemsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,5 +8,11 @@
   background-color: #1d2528;
   color: lightgrey;
 }
+.nav{
+  overflow: hidden;
+}
 
-
+.nav li{
+  float: left;
+  padding: 8px;
+}

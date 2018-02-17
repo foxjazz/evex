@@ -31,3 +31,44 @@ export class ItemBuildCls { items: Array<BItem>; }
 
 
 export class TradeHubs { Hubs: Array<Hub>; }
+
+export interface ICategory {
+  category_id: number;
+  name: string;
+  published: boolean;
+  groups: number[];
+}
+export interface IGroup {
+  group_id: number;
+  name: string;
+  published: boolean;
+  category_id: number;
+  types: number[];
+}
+export interface DogmaAttribute {
+  attribute_id: number;
+  value: number;
+}
+
+export interface DogmaEffect {
+  effect_id: number;
+  is_default: boolean;
+}
+
+export interface IType {
+  type_id: number;
+  name: string;
+  description: string;
+  published: boolean;
+  group_id: number;
+  market_group_id: number;
+  radius: number;
+  volume: number;
+  packaged_volume: number;
+  capacity: number;
+  portion_size: number;
+  mass: number;
+  graphic_id: number;
+  dogma_attributes: DogmaAttribute[];
+  dogma_effects: DogmaEffect[];
+}
