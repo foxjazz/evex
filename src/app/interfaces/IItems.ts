@@ -1,9 +1,23 @@
-export interface ItemTypesA {items: Array<ItemType>;}
-export interface ItemTypes { totalCount_str: string; pageCount: number; items: Array<ItemType>; }
-export interface ItemType { marketGroup: MarketGroup; type: Type; id: number; id_str: string; Jitaprice: number; Amarrprice: number;
-  Hekprice:number; Dodixieprice: number; Rensprice: number; Tashprice: number; Ourprice: number; Alertprice: number; AlertCondition: string; }
-export interface MarketGroup {href: string; id: number; id_str: string; }
-export interface Type { id_str: string; href: string; id: number; name: string; icon: Icon;}
+
+
+export interface ITradeItemPrice{
+  item: IType;
+  jitaPrice: number;
+  amarrPrice: number;
+  dodixiePrice: number;
+  rensPrice: number;
+  hekPrice: number;
+}
+
+export class CTradeItemPrice implements ITradeItemPrice{
+  item: IType;
+  jitaPrice: number;
+  amarrPrice: number;
+  dodixiePrice: number;
+  rensPrice: number;
+  hekPrice: number;
+}
+
 export interface Icon {href: string; }
 /**
  * Created by fox21 on 11/16/2016.
@@ -71,4 +85,18 @@ export interface IType {
   graphic_id: number;
   dogma_attributes: DogmaAttribute[];
   dogma_effects: DogmaEffect[];
+}
+
+export interface IOrder {
+  order_id: number;
+  type_id: number;
+  location_id: number;
+  volume_total: number;
+  volume_remain: number;
+  min_volume: number;
+  price: number;
+  is_buy_order: boolean;
+  duration: number;
+  issued: Date;
+  range: string;
 }

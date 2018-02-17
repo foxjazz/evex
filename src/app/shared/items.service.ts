@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import {IRegion,  ISystems} from "../interfaces/IRegions";
 import {HttpClient} from "@angular/common/http";
-import {ICategory, IGroup, IType} from "../interfaces/IItems";
+import {ICategory, IGroup, IOrder, IType} from "../interfaces/IItems";
 
 @Injectable()
 export class ItemsService {
@@ -17,7 +17,7 @@ export class ItemsService {
   private categoriesUri: string;
   private groupsUri: string;
   private typesUri: string;
-
+  private ordersUri: string;
 
   constructor(private http: HttpClient){
     this.baseUri = "https://esi.tech.ccp.is/latest/universe";
@@ -25,9 +25,13 @@ export class ItemsService {
     this.categoriesUri = "https://esi.tech.ccp.is/latest/universe/categories/?datasource=tranquility";
     this.groupsUri = "https://esi.tech.ccp.is/latest/universe/groups/";
     this.typesUri = "https://esi.tech.ccp.is/latest/universe/types/";
+    this.ordersUri = "https://esi.tech.ccp.is/latest/markets/";
 
   }
 
+  public getPriceDataUri(regionid: string){
+    return this.http.get<IOrder[]>(this.ordersUri + regionid+ "/orders" + this.uriEnd)
+  }
   public getGroup(id: string): Observable<IGroup> {
       return this.http.get<IGroup>(this.groupsUri + id + this.uriEnd);
 

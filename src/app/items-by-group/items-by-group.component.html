@@ -27,4 +27,44 @@
       </li>
     </ul>
   </div>
+
+  <div class="itemsByPrice">
+    <table class="itemtable">
+      <tr>
+        <th>Img</th>
+        <th>type</th>
+        <th class="makeroom">  </th>
+        <th>bom</th>
+
+        <th class="price">Jita price </th>
+        <th class="price">Amarr price</th>
+        <th class="price">Dodixie price</th>
+        <th class="price">Rens price</th>
+        <th class="price">Hek price </th>
+        <th class="price">Action</th>
+        <th class="price">Alerts</th>
+        <!--
+                                <td class="price">Tash-Murkon price </td>
+                                <td class="price">Oursulaert price </td>
+        -->
+
+      </tr>
+      <tr  *ngFor="let it of selItemTypes" [class.itemselected]="item === selectedItem" (click)="onRemoveItem(it)">
+        <td class="image"> <img src = "{{it.type.icon.href}}" class="image">  </td>
+        <td> {{it.type.name}} </td>
+        <td class="makeroom">  </td>
+        <td class="bomtext" alt="bom"> <img src="assets/images/bom.png" alt="bom"> </td>
+
+        <td class="price">{{it.Jitaprice | mPipe}} </td>
+        <td class="price">{{it.Amarrprice | mPipe}} </td>
+        <td class="price">{{it.Dodixieprice | mPipe}} </td>
+        <td class="price">{{it.Rensprice | mPipe}} </td>
+        <td class="price">{{it.Hekprice | mPipe}} </td>
+        <td class="price"><button id="remove" class="btn">Remove</button></td>
+        <td class="price"><button id="addAlert" class="btn">Add Alert</button></td>
+        <!--   <td class="price">{{it.Tashprice | moneyPipe}} </td>
+           <td class="price">{{it.Ourprice | moneyPipe}} </td>-->
+      </tr>
+    </table>
+  </div>
 </div>

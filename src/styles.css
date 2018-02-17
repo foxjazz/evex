@@ -74,3 +74,6 @@ ul li{
 .itemsByType{
   grid-column: 3;
 }
+.itemsByPrice{
+  grid-column: 4/span 2;
+}
