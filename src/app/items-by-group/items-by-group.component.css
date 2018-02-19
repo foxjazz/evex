@@ -35,3 +35,68 @@
   position: relative;
 
 }
+
+
+
+.itemtable {
+  background-color: #1f2f2f;
+  margin: 0 0 1em 0;
+  color: #a8af87;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 100;
+  font-size: 10;
+
+}
+
+.image {
+  background: black;
+
+}
+
+.itemtable tr {
+
+  color: #c0c9c7;
+  font-size: small;
+
+
+}
+.itemtable tr th{
+  min-width: 3em;
+}
+.itemtable tr td{
+  padding: .2em;
+  max-height: 2em;
+  font-size: small;
+}
+.input{
+  background-color: #1f2f2f;
+  color: #a8af87;
+}
+.itemtable tr.selected:hover {
+  background-color: #1f2f2f !important;
+  color: #c0c9c7;
+  cursor: pointer;
+}
+
+.itemtable tr:hover {
+  color: #c0c9c7;
+  background-color: #396763;
+  left: .1em;
+}
+
+.horizontal li {
+  display: inline-block;
+  zoom: 1;
+  *display: inline; /* this fix is needed for IE7- */
+}
+.bomtext{
+  margin-left: 5px;
+  color: #a8af87;
+}
+.bomtext a{
+  margin-left: 8px;
+  color: #a8af87;
+}
+.alerttext {
+  color: #BD0913
+}

@@ -19,12 +19,14 @@ export class ItemsService {
   private typesUri: string;
   private ordersUri: string;
 
+  public graphicUri: string;
   constructor(private http: HttpClient){
     this.baseUri = "https://esi.tech.ccp.is/latest/universe";
     this.uriEnd = "/?datasource=tranquility&language=en-us";
     this.categoriesUri = "https://esi.tech.ccp.is/latest/universe/categories/?datasource=tranquility";
     this.groupsUri = "https://esi.tech.ccp.is/latest/universe/groups/";
     this.typesUri = "https://esi.tech.ccp.is/latest/universe/types/";
+    this.graphicUri = "https://esi.tech.ccp.is/latest/universe/graphics/";
     this.ordersUri = "https://esi.tech.ccp.is/latest/markets/";
 
   }

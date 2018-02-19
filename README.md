@@ -1,3 +1,9 @@
+Eve resources
+a: https://imageserver.eveonline.com/
+
+
+
+
 # Evex
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.7.

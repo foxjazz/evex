@@ -7,6 +7,11 @@ export interface ITradeItemPrice{
   dodixiePrice: number;
   rensPrice: number;
   hekPrice: number;
+  jita: boolean;
+  amarr: boolean;
+  dodixie: boolean;
+  rens:boolean;
+  hek:boolean;
 }
 
 export class CTradeItemPrice implements ITradeItemPrice{
@@ -16,6 +21,11 @@ export class CTradeItemPrice implements ITradeItemPrice{
   dodixiePrice: number;
   rensPrice: number;
   hekPrice: number;
+  jita: boolean;
+  amarr: boolean;
+  dodixie: boolean;
+  rens:boolean;
+  hek:boolean;
 }
 
 export interface Icon {href: string; }
@@ -30,8 +40,10 @@ export interface ItemGroup {name: string; href: string; id_str: string; id: numb
 
 }
 
-export class Hub { name: string; regionId: Number; stationId: Number; }
-export interface Alert{type: Type; side: string; hub: Hub; price: number; targetPrice: number; percentage: number; qty: number;}
+export class cHub implements IHub { name: string; regionId: Number; stationId: Number; }
+
+
+export interface Alert{type: IType; side: string; hub: cHub; price: number; targetPrice: number; percentage: number; qty: number;}
 export interface BItem {typeid: number; description: string; price: number;}
 export interface ItemBuild {items: Array<BItem>; }
 export interface ItemGroups {items: Array<ItemGroup>; }
@@ -44,7 +56,9 @@ export interface Blueprint {
 export class ItemBuildCls { items: Array<BItem>; }
 
 
-export class TradeHubs { Hubs: Array<Hub>; }
+export interface IHub{
+  name: string; regionId: Number; stationId: Number;
+}
 
 export interface ICategory {
   category_id: number;

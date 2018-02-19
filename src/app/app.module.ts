@@ -15,8 +15,9 @@ import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
 import {RegionService} from "./shared/region.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import { ItemsByGroupComponent } from './items-by-group/items-by-group.component';
+import { ItemsByGroupComponent } from "./items-by-group/items-by-group.component";
 import {ItemsService} from "./shared/items.service";
+import {moneyPipe, mPipe} from "./pipes/mony.pipe";
 
 const appRoutes: Routes = [
   { path: "regions", component: RegionsComponent },
@@ -36,6 +37,8 @@ const appRoutes: Routes = [
     NavbarComponent,
     TreeviewComponent,
     ItemsByGroupComponent,
+    mPipe,
+    moneyPipe,
   ],
   imports: [
     RouterModule.forRoot(
