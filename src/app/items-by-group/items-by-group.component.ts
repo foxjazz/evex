@@ -76,8 +76,9 @@ export class ItemsByGroupComponent implements OnInit {
   public async setHubPrice(type: IType, hub: IHub, b: ITradeItemPrice)
   {
     await this.is.getPriceDataUri(hub.regionId.toString()).subscribe(res => {
-        b.item = type;
         let retval  = NaN;
+        if(type == null)
+          return;
         for (const ll of res) {
           if (ll.is_buy_order === false && ll.type_id === type.type_id) {
             if (isNaN(retval) || ll.price < retval) {
@@ -132,10 +133,13 @@ export class ItemsByGroupComponent implements OnInit {
         }
         this.selItemTypes.push(tempItems[i]);
       }
+      let ii = 0;
       for(const xx of this.tradeItemPriceList){
+
         if(xx.item.name === item.item.name){
-          this.tradeItemPriceList.unshift(xx);
+          this.tradeItemPriceList.splice(ii,1);
         }
+        ii++;
       }
       localStorage.setItem("SelEveItems", JSON.stringify(this.selItemTypes));
     }
@@ -213,16 +217,29 @@ export class ItemsByGroupComponent implements OnInit {
   onSelectType(it: IType){
     if(this.selItemTypes == null)
       this.selItemTypes = new Array<IType>();
-    this.selItemTypes.push(it);
-    let b = new CTradeItemPrice();
-
-    for(let h of this.hubs){
-      this.setHubPrice(it, h, b);
+    let note = true;
+    for(let itt of this.selItemTypes){
+      if(itt.name === it.name)
+        note = false;
     }
-    if(this.tradeItemPriceList == null)
-      this.tradeItemPriceList = new Array<ITradeItemPrice>();
-    this.tradeItemPriceList.push(b);
-
+    if(note) {
+      this.selItemTypes.push(it);
+    }
+    note = true;
+    for(const ti of this.tradeItemPriceList){
+      if(ti.item.name === it.name)
+        note = false;
+    }
+    if(note) {
+      const b = new CTradeItemPrice();
+      b.item = it;
+      for (const h of this.hubs) {
+        this.setHubPrice(it, h, b);
+      }
+      if (this.tradeItemPriceList == null)
+        this.tradeItemPriceList = new Array<ITradeItemPrice>();
+      this.tradeItemPriceList.push(b);
+    }
 
   }
   onSelectGroup(ig: IGroup){
@@ -237,7 +254,29 @@ export class ItemsByGroupComponent implements OnInit {
     }
 
   }
+
+  refreshList(){
+    if(this.selItemTypes != null) {
+      for (const it of this.selItemTypes) {
+        let cnt = 0;
+        for(const xit of this.tradeItemPriceList){
+          if(it.name == xit.item.name)
+          {
+            this.tradeItemPriceList.splice(cnt,1);
+          }
+          cnt++;
+        }
+        this.onSelectType(it);
+      }
+    }
+  }
+
   ngOnInit() {
+
+    const types = localStorage.getItem("SelEveItems");
+    this.selItemTypes = JSON.parse(types);
+
+    console.log("get categories");
     this.is.getCategories().subscribe(x => {
       if (x != null)
         this.is.categoryNumbers = x.splice(",");
@@ -250,13 +289,7 @@ export class ItemsByGroupComponent implements OnInit {
 
     });
 
-    const types = localStorage.getItem("SelEveItems");
-    this.selItemTypes = JSON.parse(types);
-    if(this.selItemTypes == null)
-      return;
-   /* for(const it of this.selItemTypes){
-      this.onSelectType(it);
-    }*/
+
   }
 
 }

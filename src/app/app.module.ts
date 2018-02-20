@@ -18,11 +18,13 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { ItemsByGroupComponent } from "./items-by-group/items-by-group.component";
 import {ItemsService} from "./shared/items.service";
 import {moneyPipe, mPipe} from "./pipes/mony.pipe";
+import { DevelopComponent } from './develop/develop.component';
 
 const appRoutes: Routes = [
   { path: "regions", component: RegionsComponent },
   { path: "home", component: HomeComponent },
-  {path: "items", component: ItemsByGroupComponent}
+  {path: "items", component: ItemsByGroupComponent},
+  {path: "develop", component: DevelopComponent}
   ];
 
 @NgModule({
@@ -39,11 +41,12 @@ const appRoutes: Routes = [
     ItemsByGroupComponent,
     mPipe,
     moneyPipe,
+    DevelopComponent,
   ],
   imports: [
     RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      appRoutes
+      //{ enableTracing: true } // <-- debugging purposes only
     ),
     FormsModule,
     BrowserModule,
