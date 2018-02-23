@@ -66,6 +66,12 @@ export interface ICategory {
   published: boolean;
   groups: number[];
 }
+export class CCategory implements ICategory{
+  category_id: number;
+  name: string;
+  published: boolean;
+  groups: number[];
+}
 export interface IGroup {
   group_id: number;
   name: string;

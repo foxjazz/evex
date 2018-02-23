@@ -3,6 +3,8 @@ import {ItemsService} from "../shared/items.service";
 import {
   Alert, cHub, CTradeItemPrice, ICategory, IGroup, IHub, IOrder, ITradeItemPrice, IType
 } from "../interfaces/IItems";
+import {ISortPattern, priSort} from "../Patterns/prioritySort";
+import {jsonpCallbackContext} from "@angular/common/http/src/module";
 
 
 
@@ -16,6 +18,7 @@ export class ItemsByGroupComponent implements OnInit {
 
   public groups: Array<IGroup>;
   public categories: Array<ICategory>;
+  public sortedCategories: Array<ICategory>;
   public selectedCategory: ICategory;
   public selectedGroup: IGroup;
   public selectedType: IType;
@@ -29,9 +32,9 @@ export class ItemsByGroupComponent implements OnInit {
   public displayPriceList: ITradeItemPrice[];
   // Hubs
 
-
+  private groupCount: number;
   public orders: IOrder[];
-
+  public categoryPattern: ISortPattern[];
   constructor(private is: ItemsService) {
     this.categories = new Array<ICategory>();
     this.groups = new Array<IGroup>();
@@ -61,6 +64,19 @@ export class ItemsByGroupComponent implements OnInit {
     hub = new cHub();
     hub.name = "Hek"; hub.regionId = 10000042; hub.stationId = 60005686;
     this.hubs.push(hub);
+    this.sortedCategories = new Array<ICategory>();
+    this.categoryPattern = new Array<ISortPattern>();
+    this.categoryPattern.push( { name: "Accessories", index: 1});
+    this.categoryPattern.push( { name: "Ship", index: 4});
+    this.categoryPattern.push( { name: "Drone", index: 5});
+
+    this.categoryPattern.push( { name: "Module", index: 6});
+    this.categoryPattern.push( { name: "Subsystem", index: 7});
+    this.categoryPattern.push( { name: "Material", index: 8});
+    this.categoryPattern.push( { name: "Asteroid", index: 9});
+    this.categoryPattern.push( { name: "Commodity", index: 20});
+    this.categoryPattern.push( { name: "Deployable", index: 21});
+    this.categoryPattern.push( { name: "Skill", index: 24});
 
  /*   hub = new cHub();
     hub.name = "Tash-Murkon"; hub.regionId = 10000020; hub.stationId = 60008764;
@@ -89,6 +105,18 @@ export class ItemsByGroupComponent implements OnInit {
         }
       }
     );
+  }
+  getArrow(c: ICategory): string{
+    if(JSON.stringify(c) === JSON.stringify(this.selectedCategory))
+      return "q";
+    return "u";
+  }
+  isSelected(c: ICategory): boolean{
+    if(JSON.stringify(c) === JSON.stringify(this.selectedCategory)) {
+      if(this.selectedCategory.groups.length === this.groupCount)
+        return true;
+    }
+    return false;
   }
 
   setItemPrice(hub: string, price: number, o: ITradeItemPrice) {
@@ -191,6 +219,11 @@ export class ItemsByGroupComponent implements OnInit {
     localStorage.setItem('SelEveItems', JSON.stringify(this.selItemTypes));
   }*/
 
+  sortCategories(){
+    let ps = new priSort();
+    this.sortedCategories = ps.sort(this.categories, this.categoryPattern);
+
+  }
   private addCategory(c: ICategory){
     this.categories.push(c);
   }
@@ -203,13 +236,20 @@ export class ItemsByGroupComponent implements OnInit {
   }
 
 
+  getChildren(): Array<IGroup>{
+    return this.groups;
+  }
+
   onSelectCategory(ic: ICategory){
     this.groups.length = 0;
-
+    this.selectedCategory = ic;
+    let cnt = 0;
     for (const gg of ic.groups){
 
         this.is.getGroup(gg.toString()).subscribe(x => {
           this.groups.push(x);
+          cnt++;
+          this.groupCount = cnt;
       });
     }
   }
@@ -254,13 +294,18 @@ export class ItemsByGroupComponent implements OnInit {
     }
 
   }
-
+  getArrowGrp(g: IGroup): string{
+    if(JSON.stringify(g)=== JSON.stringify(this.selectedGroup)) {
+      return "q";
+    }
+      return "u"
+  }
   refreshList(){
     if(this.selItemTypes != null) {
       for (const it of this.selItemTypes) {
         let cnt = 0;
         for(const xit of this.tradeItemPriceList){
-          if(it.name == xit.item.name)
+          if(it.name === xit.item.name)
           {
             this.tradeItemPriceList.splice(cnt,1);
           }
@@ -281,9 +326,13 @@ export class ItemsByGroupComponent implements OnInit {
       if (x != null)
         this.is.categoryNumbers = x.splice(",");
       this.test = this.is.categoryNumbers[0];
+      let cnt = 0;
       for (const r of this.is.categoryNumbers) {
         this.is.getCategoryContent(r.toString()).subscribe(ret => {
           this.addCategory(ret);
+          cnt++;
+          if(cnt === this.is.categoryNumbers.length)
+            this.sortCategories();
         });
       }
 

@@ -50,9 +50,9 @@ export class ItemsService {
       return null;
   }
 
-  getCategoryContent(id: string): Observable<ICategory> {
+   getCategoryContent(id: string): Observable<ICategory> {
     this.uri  = this.baseUri + "/categories/" + id + this.uriEnd;
-    return this.http.get<ICategory>(this.uri);
+    return  this.http.get<ICategory>(this.uri);
   }
 
 }

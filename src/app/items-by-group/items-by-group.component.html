@@ -1,26 +1,40 @@
-<h1 class="h1"> Price Data </h1>
+
 
 <div class="gridc_itemsByGroup">
+  <h1 class="h1"> Price Data </h1>
 
   <div>test: {{test}}</div>
+
   <div class="itemsByCategory items">
-    <ul *ngFor="let c of categories" [class.selected]="c === selectedCategory" (click)="onSelectCategory(c)">
+    <ul *ngFor="let c of sortedCategories" [class.selected]="c === selectedCategory" (click)="onSelectCategory(c)">
+
       <li>
-        {{c.name}}
+        <span class="arrow">{{getArrow(c)}}</span>{{c.name}}
+        <div *ngIf="isSelected(c)" class="itemsByCategory groups">
+          <ul  *ngFor="let g of groups" [class.selected]="g === selectedGroup" (click)="onSelectGroup(g)">
+            <li>
+              <span class="arrow">{{getArrowGrp(g)}}</span>{{g.name}}
+            </li>
+          </ul>
+        </div>
+<!--
+        <app-treeview *ngIf="isSelected(c)" [itemGroups]="getChildren(c)" (onItemsSelect)="onItemsSelect($event)">
+        </app-treeview>
+-->
       </li>
     </ul>
 
   </div>
 
-  <div class="itemsByGroup items">
+ <!-- <div class="itemsByGroup items">
     <ul *ngFor="let c of groups" [class.selected]="c === selectedGroup" (click)="onSelectGroup(c)">
       <li>
         {{c.name}}
       </li>
     </ul>
 
-  </div>
-  <div class="itemsByType items">
+  </div>-->
+  <div class="itemsByGroup items">
     <ul *ngFor="let t of types" [class.selected]="t === selectedType" (click)="onSelectType(t)">
       <li>
         {{t.name}}
