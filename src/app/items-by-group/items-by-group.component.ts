@@ -17,13 +17,16 @@ import {jsonpCallbackContext} from "@angular/common/http/src/module";
 export class ItemsByGroupComponent implements OnInit {
 
   public groups: Array<IGroup>;
+  public usGroups: Array<IGroup>;
   public categories: Array<ICategory>;
   public sortedCategories: Array<ICategory>;
   public selectedCategory: ICategory;
   public selectedGroup: IGroup;
   public selectedType: IType;
+  public selType: IType;
   public selectedItem: ITradeItemPrice;
   public types: Array<IType>;
+  public unsortedTypes: Array<IType>;
   public test: string;
   public selItemTypes: IType[];
 
@@ -144,6 +147,9 @@ export class ItemsByGroupComponent implements OnInit {
     {
       //this.onGetBOM(item);
     }
+    if(event.target["id"] === "img"){
+      this.selType = item.item;
+    }
    /* else if(event.target["alt"]==="save event"){
       this.saveEvent(item);
     }*/
@@ -242,14 +248,23 @@ export class ItemsByGroupComponent implements OnInit {
 
   onSelectCategory(ic: ICategory){
     this.groups.length = 0;
+    this.usGroups = new Array<IGroup>();
     this.selectedCategory = ic;
     let cnt = 0;
     for (const gg of ic.groups){
 
         this.is.getGroup(gg.toString()).subscribe(x => {
-          this.groups.push(x);
+          if(x.published) {
+            this.usGroups.push(x);
+          }
           cnt++;
           this.groupCount = cnt;
+          if(cnt === ic.groups.length){
+            this.groups = this.usGroups.sort((left, right): number => {
+              if (left.name < right.name) return -1;
+              if (left.name > right.name) return 1; else return 0;
+            });
+          }
       });
     }
   }
@@ -283,11 +298,22 @@ export class ItemsByGroupComponent implements OnInit {
 
   }
   onSelectGroup(ig: IGroup){
-    this.types.length = 0;
-    this.types = new Array<IType>();
+
+    this.unsortedTypes = new Array<IType>();
+    this.selectedGroup = ig;
+    let cnt = 0;
     for (const gt of ig.types){
       this.is.getType(gt).subscribe(xt => {
-        this.types.push(xt);
+        if(xt.published) {
+          this.unsortedTypes.push(xt);
+        }
+        cnt++;
+        if(cnt === ig.types.length) {
+          this.types = this.unsortedTypes.sort((left, right): number => {
+            if (left.name < right.name) return -1;
+            if (left.name > right.name) return 1; else return 0;
+          });
+        }
       });
 
 
@@ -329,7 +355,9 @@ export class ItemsByGroupComponent implements OnInit {
       let cnt = 0;
       for (const r of this.is.categoryNumbers) {
         this.is.getCategoryContent(r.toString()).subscribe(ret => {
-          this.addCategory(ret);
+          if(ret.published) {
+            this.addCategory(ret);
+          }
           cnt++;
           if(cnt === this.is.categoryNumbers.length)
             this.sortCategories();
