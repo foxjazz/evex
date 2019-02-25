@@ -21,13 +21,13 @@ export class ItemsService {
 
   public graphicUri: string;
   constructor(private http: HttpClient){
-    this.baseUri = "https://esi.tech.ccp.is/latest/universe";
+    this.baseUri = "https://esi.evetech.net/latest/universe";
     this.uriEnd = "/?datasource=tranquility&language=en-us";
-    this.categoriesUri = "https://esi.tech.ccp.is/latest/universe/categories/?datasource=tranquility";
-    this.groupsUri = "https://esi.tech.ccp.is/latest/universe/groups/";
-    this.typesUri = "https://esi.tech.ccp.is/latest/universe/types/";
-    this.graphicUri = "https://esi.tech.ccp.is/latest/universe/graphics/";
-    this.ordersUri = "https://esi.tech.ccp.is/latest/markets/";
+    this.categoriesUri = "https://esi.evetech.net/latest/universe/categories/?datasource=tranquility";
+    this.groupsUri = "https://esi.evetech.net/latest/universe/groups/";
+    this.typesUri = "https://esi.evetech.net/latest/universe/types/";
+    this.graphicUri = "https://esi.evetech.net/latest/universe/graphics/";
+    this.ordersUri = "https://esi.evetech.net/latest/markets/";
 
   }
 

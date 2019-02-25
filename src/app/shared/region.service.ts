@@ -21,9 +21,9 @@ export class RegionService {
   private regionsUri: string;
 
   constructor(private http: HttpClient) {
-    this.baseUri = "https://esi.tech.ccp.is/latest/universe";
+    this.baseUri = "https://esi.evetech.net/latest/universe";
     this.uriEnd = "/?datasource=tranquility&language=en-us";
-    this.regionsUri = "https://esi.tech.ccp.is/latest/universe/regions/?datasource=tranquility";
+    this.regionsUri = "https://esi.evetech.net/latest/universe/regions/?datasource=tranquility";
     this.Regions = new Array<IRegion>();
   }
 
